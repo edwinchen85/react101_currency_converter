@@ -29,6 +29,26 @@ class App extends React.Component {
     });
   }
 
+  onChangeHandler(e, currency) {
+
+    const {currencyA, currencyB} = this.state;
+
+    if (currency === 'A') {
+      const newValueA = e.target.value;
+      this.setState({
+        currencyAval: newValueA,
+        currencyBval: newValueA * currencyB.sellRate
+      });
+    } else if (currency === 'B') {
+      const newValueB = e.target.value;
+      this.setState({
+        currencyAval: newValueB / currencyB.sellRate,
+        currencyBval: newValueB
+      });
+    }
+
+  }
+
   render(){
     const {currencies, currencyA, currencyB, currencyAval, currencyBval} = this.state;
     return (
@@ -60,7 +80,9 @@ class App extends React.Component {
               }
               <div className="input-group">
                 <span className="input-group-addon">{currencyA.sign}</span>
-                <input type="number" defaultValue={0} className="form-control" aria-describedby="basic-addon2" step="1" pattern="\d\.\d{2}"  />
+                <input type="number" value={currencyAval} className="form-control" aria-describedby="basic-addon2" step="1" pattern="\d\.\d{2}" onChange={(e) => {
+                  this.onChangeHandler(e, 'A');
+                }} />
                 <span className="input-group-addon" id="basic-addon2">{currencyA.code}</span>
               </div>
 
@@ -72,7 +94,9 @@ class App extends React.Component {
               }
               <div className="input-group">
                 <span className="input-group-addon">{currencyB.sign}</span>
-                <input type="number" defaultValue={0} className="form-control" aria-describedby="basic-addon3" step="1" pattern="\d\.\d{2}"  />
+                <input type="number" value={currencyBval} className="form-control" aria-describedby="basic-addon3" step="1" pattern="\d\.\d{2}" onChange={(e) => {
+                  this.onChangeHandler(e, 'B');
+                }} />
                 <span className="input-group-addon" id="basic-addon3">{currencyB.code}</span>
               </div>
 
