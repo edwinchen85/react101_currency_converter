@@ -15,10 +15,18 @@ class App extends React.Component {
       currencyAval: data.currencies[0].sellRate,
       currencyBval: data.currencies[1].sellRate,
     }
+
+    this.onSelectCurrency = this.onSelectCurrency.bind(this);
   }
 
   onSelectCurrency(code) {
-    console.log('Selecting currency: ' + code);
+    // console.log('Selecting currency: ' + code);
+    const {currencies} = this.state;
+    const currency = currencies.filter(currency => currency.code === code);
+    this.setState({
+      // this is an array with one item
+      currencyB: currency[0]
+    });
   }
 
   render(){
