@@ -21,11 +21,12 @@ class App extends React.Component {
 
   onSelectCurrency(code) {
     // console.log('Selecting currency: ' + code);
-    const {currencies} = this.state;
+    const {currencies, currencyAval} = this.state;
     const currency = currencies.filter(currency => currency.code === code);
     this.setState({
       // this is an array with one item
-      currencyB: currency[0]
+      currencyB: currency[0],
+      currencyBval: currencyAval * currency[0].sellRate
     });
   }
 
